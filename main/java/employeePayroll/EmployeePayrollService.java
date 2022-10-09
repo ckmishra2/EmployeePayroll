@@ -1,9 +1,14 @@
 package employeePayroll;
 
 import java.io.Console;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import org.apache.commons.io.FileUtils;
 
 class EmployeePayrollData {
 	int id;
@@ -41,6 +46,45 @@ public class EmployeePayrollService {
 		Scanner consoleInputReader = new Scanner(System.in);
 		employeePayrollService.readEmployeePayrollDataScanner(consoleInputReader);
 		employeePayrollService.writeEmployeePayrollData();
+		try {
+			String Url = "D:\\Chandrakala\\EclipseWorkspace\\EmployeePayrollService\\src\\main\\java\\employeePayroll\\employee.txt";
+			File fileobj = new File(Url);
+			
+			if(fileobj.exists())
+			{
+				System.out.println("File already exits.");
+			}
+			else
+			{
+				if(fileobj.createNewFile()) {
+					System.out.println("File created: "+fileobj.getName());
+				}
+				else {
+					System.out.println("failed to create");  
+				}
+			}
+			if(fileobj.exists())
+			{
+				System.out.println("File already exits. trying to delete");
+				if(fileobj.delete())                      //returns Boolean value  
+				{  
+					System.out.println(fileobj.getName() + "File deleted");
+				}  
+				else  
+				{  
+					System.out.println("failed to delete");  
+				}
+			}
+			else
+			{
+				System.out.println("File doesn't exits.");
+			}
+			
+		}catch (IOException e) {
+				System.out.println("An error occured.");
+				e.printStackTrace();
+			}		
+		
 	}
 
 	private void readEmployeePayrollDataScanner(Scanner consoleInputReader) {
